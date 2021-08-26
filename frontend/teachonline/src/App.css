@@ -1,0 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.color-white {
+  color:#fff !important;
+}
+body{
+  background-color: #f5f6fa !important;
+}
+.homepage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.homepage {
+  max-width: 550px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+  -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+  -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+}
+.teacherRgBtn, .studentRgBtn {
+  color: #fff !important;
+  box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+  -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+  -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+  padding: 10px !important;
+  font-size: 14px !important;
+}
+
+.teacher-register-container, .teacher-login-container {
+  position: relative;
+  height: 100vh;
+  width: 100% !important;
+  overflow: hidden;
+  
+}
+.teacher-register-container form, .teacher-login-container form{
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
+  -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
+  -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63); 
+  border-radius: 5px;
+}
+.teacher-register-container .teacheRgInput, .teacher-login-container .teacheLgInput{
+  margin: 10px;
+  width: 100%;
+  background-color: transparent;
+}
+.errorMsg {
+  border: 1px solid red;
+  line-height: 16px;
+  font-size: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
