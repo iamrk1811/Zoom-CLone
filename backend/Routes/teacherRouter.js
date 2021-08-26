@@ -22,18 +22,22 @@ teacherRouter.post("/teacherRegisterBackend", (req, res) => {
   if (!validateEmail(email)) {
     return res.status(400).json({ err: "Please Enter Valid Email" });
   }
-
   if (!validateMobile(mobile)) {
     return res.status(400).json({ err: "Please Enter Valid Mobile" });
   }
   if (password.length < 6) {
-    return res.status(400).json({ err: "Password length should be atleast 6 character" });
+    return res
+      .status(400)
+      .json({ err: "Password length should be atleast 6 character" });
+  }
+  if (password != cpassword) {
+    return res.status(400).json({ err: "Password not matching" });
   }
 
   // check if already registered
   Teacher.findOne({ email: email }).then((result) => {
     if (result) {
-      return res.status(409).json({ err: "User Already Exist" });
+      return res.status(409).json({ err: "Teacher Already Exist" });
     } else {
       //   creating instance of teacher model then save it into DATABASE
       const teacher = new Teacher({
@@ -51,7 +55,7 @@ teacherRouter.post("/teacherRegisterBackend", (req, res) => {
           res.status(200).json({ msg: "teacher registered" });
         })
         .catch((err) => {
-          res.status(500).json({ err: "failed to register" + err });
+          res.status(500).json({ err: "failed to register" + err});
         });
     }
   });

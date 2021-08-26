@@ -6,7 +6,7 @@ require('dotenv').config({ path: './config.env' })
 const PORT = process.env.PORT; 
  
 // database connection
-require("./database/TeacherDBconn");
+require("./database/conn");
 
 
 // using middleware
