@@ -7,8 +7,9 @@ const Homepage = () => {
         <div className="homepage p-5">
           <h3>Hi, to use our service kindly register with us</h3>
           <div className="btn-container">
-            <NavLink to="/teacherRegister" style={{textDecoration:"none"}}><Button className="bg-success m-2 teacherRgBtn">Register as Teacher</Button></NavLink>
-            <NavLink to="/studentRegister" style={{textDecoration:"none"}}><Button className="bg-primary m-2 studentRgBtn">Register as Student</Button></NavLink>
+            <NavLink to="/collegeLogin" style={{textDecoration:"none"}}><Button className="bg-warning m-2 teacherRgBtn">College Login</Button></NavLink>
+            <NavLink to="/teacherLogin" style={{textDecoration:"none"}}><Button className="bg-primary m-2 studentRgBtn">Teacher Login</Button></NavLink>
+            <NavLink to="/studentLogin" style={{textDecoration:"none"}}><Button className="bg-info m-2 studentRgBtn">Student Login</Button></NavLink>
           </div>
         </div>
       </div>

@@ -9,18 +9,11 @@ const teacherSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  mobile: {
-    type: Number,
-    required: true
-  },
   password: {
       type: String,
       required: true,
   },
-  cpassword: {
-      type: String,
-      required: true
-  },
+  stream: String,
   bio: String,
   Rating: Number,
   star1: Number,
