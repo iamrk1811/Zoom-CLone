@@ -13,6 +13,7 @@ const teacherSchema = mongoose.Schema({
       type: String,
       required: true,
   },
+  collegeName: String,
   stream: String,
   bio: String,
   Rating: Number,

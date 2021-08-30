@@ -126,7 +126,7 @@ collegeRouter.post("/collegeVerifyUser", AuthenticationCollege, (req, res) => {
 
 // adding teacher to database
 collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
-  let { fullname, email, password, stream } = req.body;
+  let { fullname, email, password, collegeName, stream } = req.body;
   fullname = fullname.trim();
   email = email.trim();
   stream = stream.trim();
@@ -155,6 +155,7 @@ collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
         fullname,
         email,
         password,
+        collegeName,
         stream,
       });
 
@@ -191,7 +192,7 @@ collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
   });
 });
 
-// collegeGetTeachersBackend
+// get all teachers from database based on which college
 collegeRouter.post("/collegeGetTeachersBackend", (req, res) => {
   const token = req.cookies.authToken;
   const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);

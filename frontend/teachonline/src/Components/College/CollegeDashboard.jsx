@@ -124,7 +124,7 @@ const CollegeDashboard = () => {
             </div>
           </nav>
           <div className="main-content" id="main-content">
-            {mainContent === "Add Teacher" && <AddTeacher />}
+            {mainContent === "Add Teacher" && <AddTeacher collegeName={collegeName} />}
             {mainContent === "Available Teachers" && <AvailableTeachers />}
             {mainContent === "Add Stream" && <AddStream />}
           </div>

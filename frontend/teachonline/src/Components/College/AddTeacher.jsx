@@ -3,7 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 
 import { useState } from "react";
 
-const AddTeacher = () => {
+const AddTeacher = (collegeName) => {
   const [teacher, setTeacher] = useState({
     fullname: "",
     email: "",
@@ -40,6 +40,7 @@ const AddTeacher = () => {
         fullname: teacher.fullname,
         email: teacher.email,
         password: teacher.password,
+        collegeName: collegeName.collegeName,
         stream: teacher.stream,
       }),
     })
