@@ -92,12 +92,12 @@ collegeRouter.post("/collegeLoginBackend", (req, res) => {
 
         // setting cookie
         res.cookie("authType", "college", {
-          maxAge: 24 * 3600 * 1000, // 24 hours in miliseconds
+          maxAge: 30 * 24 * 3600 * 1000, // 24 hours in miliseconds
           // httpOnly: true,
         });
 
         res.cookie("authToken", token, {
-          maxAge: 24 * 3600 * 1000, // 24 hours in miliseconds
+          maxAge: 30 * 24 * 3600 * 1000, // 24 hours in miliseconds
           // httpOnly: true,
         });
 
@@ -167,22 +167,70 @@ collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
       teacher
         .save()
         .then((teacherResult) => {
-
           // save to college database
-          College.findOne({ _id: jwtverifytoken._id, "tokens.token": token }).then(
-            (collegeResult) => {
-              collegeResult.teachers = collegeResult.teachers.concat({teacherName: fullname, teacherEmail: email});
-              collegeResult.save().then((r) => {console.log("Teacher added")});
-            }
-          );
+          College.findOne({
+            _id: jwtverifytoken._id,
+            "tokens.token": token,
+          }).then((collegeResult) => {
+            collegeResult.teachers = collegeResult.teachers.concat({
+              teacherName: fullname,
+              teacherEmail: email,
+              teacherStream: stream,
+            });
+            collegeResult.save().then((r) => {
+              console.log("Teacher added");
+            });
+          });
 
-          res.status(200).json({msg:"Teacher added successfully"})
+          res.status(200).json({ msg: "Teacher added successfully" });
         })
         .catch((err) => {
-          res.status(500).json({err:"Server not responding"})
+          res.status(500).json({ err: "Server not responding" });
         });
     }
   });
+});
+
+// collegeGetTeachersBackend
+collegeRouter.post("/collegeGetTeachersBackend", (req, res) => {
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+
+  College.findOne({ _id: jwtverifytoken._id, "tokens.token": token })
+    .then((result) => {
+      if (result) {
+        const teachers = result.teachers;
+        res.status(200).json({ Teachers: teachers });
+      } else {
+        throw new Error("College Not Found");
+      }
+    })
+    .catch((err) => {
+      res.status(200).json({ err: "Bad request" });
+    });
+});
+
+// delete teacher from college database as well as teacher database
+collegeRouter.post("/collegeDeleteTeacherBackend", (req, res) => {
+  const { email } = req.body;
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+
+  Teacher.deleteOne({email: email}).then((result) => {
+    College.findOne({_id: jwtverifytoken._id}).then((college) => {
+      const newTeachers = college.teachers.filter((obj) => {return obj.teacherEmail !== email});
+      College.updateOne({_id: jwtverifytoken._id}, {
+        $set: {
+          teachers: newTeachers
+        }
+      }).then((r) => {
+        res.status(200).json({msg:"Deleted"});
+      }).catch((err) => {throw new Error("Not Working")})
+    })
+    
+  }).catch((err) => {
+    res.status(500).json({err: "Server error"});
+  })
 });
 
 module.exports = collegeRouter;

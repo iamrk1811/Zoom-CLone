@@ -20,6 +20,7 @@ const collegeSchema = mongoose.Schema({
     teachers: [{
         teacherName: String,
         teacherEmail: String,
+        teacherStream: String
     }],
     tokens: [
         {
