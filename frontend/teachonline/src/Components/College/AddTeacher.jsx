@@ -3,7 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 
 import { useState } from "react";
 
-const AddTeacher = (collegeName) => {
+function AddTeacher(props) {
   const [teacher, setTeacher] = useState({
     fullname: "",
     email: "",
@@ -40,7 +40,7 @@ const AddTeacher = (collegeName) => {
         fullname: teacher.fullname,
         email: teacher.email,
         password: teacher.password,
-        collegeName: collegeName.collegeName,
+        collegeName: props.collegeName,
         stream: teacher.stream,
       }),
     })
@@ -50,11 +50,11 @@ const AddTeacher = (collegeName) => {
           setSuccessMsg("Teacher added successfully");
           setTeacherAddedInfo("success");
           setTeacher({
-              fullname:"",
-              email:"",
-              password:"",
-              stream:""
-          })
+            fullname: "",
+            email: "",
+            password: "",
+            stream: ""
+          });
         } else {
           setErrorMsg(data.err);
           setTeacherAddedInfo("error");
@@ -87,8 +87,7 @@ const AddTeacher = (collegeName) => {
               <Input
                 value={teacher.fullname}
                 name="fullname"
-                onChange={collegeAddTeacherInputHandler}
-              />
+                onChange={collegeAddTeacherInputHandler} />
             </FormControl>
             <FormControl
               fullWidth={true}
@@ -98,8 +97,7 @@ const AddTeacher = (collegeName) => {
               <Input
                 value={teacher.email}
                 name="email"
-                onChange={collegeAddTeacherInputHandler}
-              />
+                onChange={collegeAddTeacherInputHandler} />
             </FormControl>
             <FormControl
               fullWidth={true}
@@ -110,8 +108,7 @@ const AddTeacher = (collegeName) => {
                 value={teacher.password}
                 name="password"
                 onChange={collegeAddTeacherInputHandler}
-                type="password"
-              />
+                type="password" />
             </FormControl>
             <FormControl
               fullWidth={true}
@@ -121,8 +118,7 @@ const AddTeacher = (collegeName) => {
               <Input
                 value={teacher.stream}
                 name="stream"
-                onChange={collegeAddTeacherInputHandler}
-              />
+                onChange={collegeAddTeacherInputHandler} />
             </FormControl>
             <Button
               onClick={collegeAddTeacher}
@@ -136,6 +132,6 @@ const AddTeacher = (collegeName) => {
       </div>
     </div>
   );
-};
+}
 
 export default AddTeacher;

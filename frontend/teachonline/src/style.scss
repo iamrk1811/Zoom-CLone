@@ -1,144 +1,146 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  .color-white {
-    color:#fff !important;
-  }
-  body{
-    background-color: #f5f6fa !important;
-  }
-  .homepage-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .homepage {
-    max-width: 550px;
-    background-color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.color-white {
+  color: #fff !important;
+}
+body {
+  background-color: #f5f6fa !important;
+}
+.homepage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.homepage {
+  max-width: 550px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  box-shadow: -10px 10px 15px -11px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: -10px 10px 15px -11px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: -10px 10px 15px -11px rgba(0, 0, 0, 0.63);
+}
+// .teacherRgBtn, .studentRgBtn {
+//   color: #fff !important;
+//   box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+//   -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+//   -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+//   padding: 10px !important;
+//   font-size: 14px !important;
+// }
+
+// .teacher-register-container {
+//   position: relative;
+//   height: 100vh;
+//   width: 100% !important;
+//   overflow: hidden;
+
+// }
+// .teacher-register-container form{
+//   position: absolute;
+//   width: 80%;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   padding: 10px;
+//   background-color: #fff;
+//   box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
+//   -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
+//   -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
+//   border-radius: 5px;
+// }
+// .teacher-register-container .teacheRgInput{
+//   margin: 10px;
+//   width: 100%;
+//   background-color: transparent;
+// }
+.errorMsg {
+  border: 1px solid red;
+  line-height: 16px;
+  font-size: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.collegeRegisterForm,
+.collegeLoginForm {
+  padding: 10px;
+  margin: 10px;
+  box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  border-radius: 5px;
+  border: 1px solid rgba(99, 250, 119, 0.5);
+
+  input,
+  select {
     border-radius: 10px;
-    width: 100%;
-    text-align: center;
-    box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-    -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-    -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
+    border: none;
+    margin-top: 5px;
   }
-  .teacherRgBtn, .studentRgBtn {
-    color: #fff !important;
-    box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-    -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-    -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-    padding: 10px !important;
-    font-size: 14px !important;
-  }
-  
-  .teacher-register-container, .teacher-login-container {
-    position: relative;
-    height: 100vh;
-    width: 100% !important;
-    overflow: hidden;
-    
-  }
-  .teacher-register-container form, .teacher-login-container form{
-    position: absolute;
-    width: 80%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63); 
-    border-radius: 5px;
-  }
-  .teacher-register-container .teacheRgInput, .teacher-login-container .teacheLgInput{
-    margin: 10px;
-    width: 100%;
-    background-color: transparent;
-  }
-  .errorMsg {
-    border: 1px solid red;
-    line-height: 16px;
+  button {
     font-size: 16px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #32ff7e;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    margin: auto;
+    display: block;
   }
-  .collegeRegisterForm, .collegeLoginForm {
-    padding: 10px;
-    margin: 10px;
-    box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63); 
-    border-radius: 5px;
-    border: 1px solid rgba(99, 250, 119, .5);
+}
 
-    input, select {
-      border-radius: 10px;
-      border: none;
-      margin-top: 5px;
-    }
-    button {
-      font-size: 16px;
-      background-color: #32ff7e;
-      margin-top: 10px !important;
-      margin-bottom: 10px !important;
-      margin: auto;
-      display: block;
-    }
-  }  
-
-  // collegeDashboard start
-  /*
+// collegeDashboard start
+/*
     DEMO STYLE
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
 }
 
 a,
 a:hover,
 a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
 .navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
+  box-shadow: none;
+  outline: none !important;
+  border: none;
 }
 
 .line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
 }
 
 /* ---------------------------------------------------
@@ -146,46 +148,44 @@ a:focus {
 ----------------------------------------------------- */
 
 .wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
+  display: flex;
+  width: 100%;
+  align-items: stretch;
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #0dcaf0;
-    color: #fff;
-    transition: all 0.3s;
+  min-width: 250px;
+  max-width: 250px;
+  background: #0dcaf0;
+  color: #fff;
+  transition: all 0.3s;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+  margin-left: -250px;
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: #00d5ff;
+  padding: 20px;
+  background: #00d5ff;
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
-    color: #fff;
-    padding: 10px;
+  color: #fff;
+  padding: 10px;
 }
 
-
-
 .dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .collegeDashboardOptionBtn {
@@ -195,21 +195,20 @@ a:focus {
 }
 
 .logout {
-    width: 70%;
-    background: #24b6d3 !important;
-    color: #fff !important;
+  width: 70%;
+  background: #24b6d3 !important;
+  color: #fff !important;
 }
-
 
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 
 #content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
 }
 
 /* ---------------------------------------------------
@@ -217,35 +216,62 @@ a:focus {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
 }
-  // collegeDashboard end
+// collegeDashboard end
+// add teacher start
+.collegeOptionComponentContainer {
+  background: #fff !important;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+  border-radius: 5px;
+  border: 2px solid rgba(99, 250, 119, 0.5);
 
-  .collegeOptionComponentContainer {
-    background: #fff !important;
+  .collegeOptionComponentInput {
+    margin: 5px;
+  }
+  .cbtn {
+    background: #00d5ff;
+  }
+  input {
+    color: #00d5ff;
+  }
+}
+// add teacher end
+
+// teacher login start
+
+.teacher-login-container {
+  
+  .teacherLoginForm {
+    background-color: #fff !important;
     padding: 10px;
     margin: 10px;
-    box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-    -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63); 
+    box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+    -webkit-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
+    -moz-box-shadow: -10px 10px 5px -11px rgba(0, 0, 0, 0.63);
     border-radius: 5px;
-    border: 2px solid rgba(99, 250, 119, .5);
-
-    .collegeOptionComponentInput {
-      margin: 5px;
-    }
-    .cbtn{
-      background: #00d5ff;
-    }
-    input {
-      color: #00d5ff;
-    }
+    border: 1px solid rgba(99, 250, 119, 0.5);
   }
+  .loginbtn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #24b6d3
+  }
+  .loginbtn:hover {
+    background-color: #5ad1e9;
+  }
+}
+
+// teacher login end

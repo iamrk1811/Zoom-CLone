@@ -20,4 +20,9 @@ const AuthenticationCollege = (req, res, next) => {
     });
 };
 
+
+// const AuthenticationTeacher = (req, res, next) => {
+//     const token = 
+// }
 module.exports = AuthenticationCollege;
+// module.exports = AuthenticationTeacher;

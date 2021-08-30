@@ -2,63 +2,42 @@ const express = require("express");
 const teacherRouter = express.Router();
 const { validateEmail, validateMobile } = require("../utils/util");
 const Teacher = require("../model/teacherSchema");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-teacherRouter.post("/teacherRegisterBackend", (req, res) => {
-  let { fullname, email, mobile, password, cpassword } = req.body;
 
-  // trim all input
-  fullname = fullname.trim();
-  email = email.trim();
-  mobile = mobile.trim();
-  password = password.trim();
-  cpassword = cpassword.trim();
 
-  // check for blank input
-  if (!fullname || !email || !mobile || !password || !cpassword) {
-    return res.status(400).json({ err: "Invalid Input" });
-  }
+// verify teacher
+teacherRouter.post("/teacherLoginBackend", (req, res) => {
+  const {email, password} = req.body;
+  Teacher.findOne({email: email}).then( (data) => {
+    if(data) {
+      bcrypt.compare(password, data.password, function(err, isPasswordMatched) {
+        if(err || !isPasswordMatched) {
+          res.status(400).json({err:"Invalid credentials"}); // password not matching
+        } else {
+          const token = jwt.sign({_id: data._id}, process.env.jwtsecretkey);
+          // updating the teacher with token
+          data.tokens = data.tokens.concat({ token: token });
+          data.save();
 
-  // validation
-  if (!validateEmail(email)) {
-    return res.status(400).json({ err: "Please Enter Valid Email" });
-  }
-  if (!validateMobile(mobile)) {
-    return res.status(400).json({ err: "Please Enter Valid Mobile" });
-  }
-  if (password.length < 6) {
-    return res
-      .status(400)
-      .json({ err: "Password length should be atleast 6 character" });
-  }
-  if (password != cpassword) {
-    return res.status(400).json({ err: "Password not matching" });
-  }
-
-  // check if already registered
-  Teacher.findOne({ email: email }).then((result) => {
-    if (result) {
-      return res.status(409).json({ err: "Teacher Already Exist" });
-    } else {
-      //   creating instance of teacher model then save it into DATABASE
-      const teacher = new Teacher({
-        fullname,
-        email,
-        mobile,
-        password,
-        cpassword,
+          // setting cookie
+          res.cookie("authType", "teacher", {
+            maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
+            // httpOnly: true,
+          });
+          res.cookie("authToken", token, {
+            maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
+          })
+          res.status(200).json({msg : "login successful"});
+        }
       });
-
-      //   trying to save the data
-      teacher
-        .save()
-        .then(() => {
-          res.status(200).json({ msg: "teacher registered" });
-        })
-        .catch((err) => {
-          res.status(500).json({ err: "failed to register" + err});
-        });
+    } else {
+      res.status(400).json({err:"Invalid credentials"});
     }
-  });
+  }).catch((err) => {
+    res.status(400).json({err:"Invalid credentials"});
+  })
 });
 
 module.exports = teacherRouter;

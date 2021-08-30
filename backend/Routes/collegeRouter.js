@@ -85,24 +85,38 @@ collegeRouter.post("/collegeLoginBackend", (req, res) => {
   College.findOne({ email: email })
     .then((result) => {
       if (result) {
-        // on successful login
-        const token = jwt.sign({ _id: result._id }, process.env.jwtsecretkey);
-        result.tokens = result.tokens.concat({ token: token });
-        result.save();
+        // matching password
+        bcrypt.compare(
+          password,
+          result.password,
+          function (err, isPassMatched) {
+            if (err || !isPassMatched) {
+              return res.status(400).json({ err: "Invalid Credentials" });
+            } else {
+              // on successful login
+              const token = jwt.sign(
+                { _id: result._id },
+                process.env.jwtsecretkey
+              );
+              result.tokens = result.tokens.concat({ token: token });
+              result.save();
 
-        // setting cookie
-        res.cookie("authType", "college", {
-          maxAge: 30 * 24 * 3600 * 1000, // 24 hours in miliseconds
-          // httpOnly: true,
-        });
+              // setting cookie
+              res.cookie("authType", "college", {
+                maxAge: 30 * 24 * 3600 * 1000, // 30 Days in miliseconds
+                // httpOnly: true,
+              });
 
-        res.cookie("authToken", token, {
-          maxAge: 30 * 24 * 3600 * 1000, // 24 hours in miliseconds
-          // httpOnly: true,
-        });
+              res.cookie("authToken", token, {
+                maxAge: 30 * 24 * 3600 * 1000, // 30 Days in miliseconds
+                // httpOnly: true,
+              });
 
-        res.cookie();
-        return res.status(200).json({ msg: "Login successful" });
+              res.cookie();
+              return res.status(200).json({ msg: "Login successful" });
+            }
+          }
+        );
       } else {
         return res
           .status(400)
@@ -110,8 +124,7 @@ collegeRouter.post("/collegeLoginBackend", (req, res) => {
       }
     })
     .catch((err) => {
-      // SOMETHING WENT WRONG
-      // TODO
+      return res.status(400).json({ err: "Please enter correct credentials" });
     });
 });
 
@@ -217,21 +230,31 @@ collegeRouter.post("/collegeDeleteTeacherBackend", (req, res) => {
   const token = req.cookies.authToken;
   const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
 
-  Teacher.deleteOne({email: email}).then((result) => {
-    College.findOne({_id: jwtverifytoken._id}).then((college) => {
-      const newTeachers = college.teachers.filter((obj) => {return obj.teacherEmail !== email});
-      College.updateOne({_id: jwtverifytoken._id}, {
-        $set: {
-          teachers: newTeachers
-        }
-      }).then((r) => {
-        res.status(200).json({msg:"Deleted"});
-      }).catch((err) => {throw new Error("Not Working")})
+  Teacher.deleteOne({ email: email })
+    .then((result) => {
+      College.findOne({ _id: jwtverifytoken._id }).then((college) => {
+        const newTeachers = college.teachers.filter((obj) => {
+          return obj.teacherEmail !== email;
+        });
+        College.updateOne(
+          { _id: jwtverifytoken._id },
+          {
+            $set: {
+              teachers: newTeachers,
+            },
+          }
+        )
+          .then((r) => {
+            res.status(200).json({ msg: "Deleted" });
+          })
+          .catch((err) => {
+            throw new Error("Not Working");
+          });
+      });
     })
-    
-  }).catch((err) => {
-    res.status(500).json({err: "Server error"});
-  })
+    .catch((err) => {
+      res.status(500).json({ err: "Server error" });
+    });
 });
 
 module.exports = collegeRouter;

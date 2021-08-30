@@ -19,7 +19,7 @@ const CollegeDashboard = () => {
 
     // check if this token is valid or not
     if (authType !== "college") {
-      history.replace("/");
+      history.replace("/collegeLogin");
     } else {
       fetch("/collegeVerifyUser", {
         method: "POST",
@@ -32,7 +32,7 @@ const CollegeDashboard = () => {
         .then(async (res) => {
           // if status code is not 200 that means user is not verified
           if (res.status !== 200) {
-            history.replace("/");
+            history.replace("/collegeLogin");
           } else {
             const data = await res.json();
             setCollegeName(data.collegeName);

@@ -7,26 +7,28 @@ import { Switch, Route } from "react-router-dom";
 import Homepage from "./Components/Homepage";
 import CollegeLogin from "./Components/College/CollegeLogin"
 import CollegeRegistration from "./Components/College/CollegeRegistration"
-// import NavBar from "./Components/NavBar";
 import CollegeDashboard from "./Components/College/CollegeDashboard";
-
+import TeacherLogin from "./Components/Teacher/TeacherLogin";
 
 const App = () => {
   return (
     <>
-      {/* <NavBar /> */}
       <Switch>
         <Route path="/" exact>
           <Homepage />
         </Route>
-        <Route path="/collegeRegister">
+        <Route path="/collegeRegister" exact>
           <CollegeRegistration />
         </Route>
-        <Route path="/collegeLogin">
+        <Route path="/collegeLogin" exact>
           <CollegeLogin />
         </Route>
         <Route path="/collegeDashboard" exact>
           <CollegeDashboard />
+        </Route>
+
+        <Route path="/teacherLogin">
+          <TeacherLogin />
         </Route>
       </Switch>
     </>

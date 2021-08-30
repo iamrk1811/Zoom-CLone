@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 
 const teacherSchema = mongoose.Schema({
   fullname: {
-      type: String,
-      required: true
+    type: String,
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   collegeName: String,
   stream: String,
@@ -27,9 +27,13 @@ const teacherSchema = mongoose.Schema({
   facebook: String,
   instagram: String,
   linkedin: String,
-  github: String
-})
-
+  github: String,
+  tokens: [
+    {
+      token: String,
+    }
+  ],
+});
 
 const Teacher = mongoose.model("TEACHER", teacherSchema);
 
