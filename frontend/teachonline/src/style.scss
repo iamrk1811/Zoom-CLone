@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .color-white {
   color: #fff !important;
@@ -99,7 +100,6 @@ body {
     DEMO STYLE
 */
 
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
@@ -188,6 +188,10 @@ a:focus {
   transform: translateY(-50%);
 }
 
+.listItemBorder {
+  border: 2px solid red !important;
+}
+
 .collegeDashboardOptionBtn {
   // width: 100%;
   display: block !important;
@@ -206,7 +210,7 @@ a:focus {
 
 #content {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   min-height: 100vh;
   transition: all 0.3s;
 }
@@ -253,7 +257,6 @@ a:focus {
 // teacher login start
 
 .teacher-login-container {
-  
   .teacherLoginForm {
     background-color: #fff !important;
     padding: 10px;
@@ -267,7 +270,7 @@ a:focus {
   .loginbtn {
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #24b6d3
+    background-color: #24b6d3;
   }
   .loginbtn:hover {
     background-color: #5ad1e9;
@@ -275,3 +278,151 @@ a:focus {
 }
 
 // teacher login end
+
+// meeting start
+#sidebar-right {
+  min-width: 300px;
+  max-width: 300px;
+  background: #2d3436;
+  color: #fff;
+  margin-right: -300px;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+#sidebar-right.active {
+  margin-right: 0;
+}
+
+#sidebar-right .sidebar-header {
+  padding: 13px;
+  background: #394144;
+}
+
+#sidebar-right ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+#sidebar-right ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+.meeting-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.video-container {
+  height: 100vh;
+  overflow-y:auto;
+}
+.main-video {
+  background-color: red;
+  height: 550px;
+  border-radius: 15px;
+  width: 100%;
+  margin: auto !important;
+  video {
+    width: 100% !important;
+    height: auto !important;
+    z-index: 100;
+    display: block;
+  }
+}
+
+.meeting-bar {
+  position: fixed !important;
+  bottom: 0;
+  left: 50%;
+  height: 70px;
+  transform: translateX(-50%);
+  width: 100% !important;
+  border-radius: 35px;
+  margin-bottom: 10px;
+  padding: 6px;
+  background-color: #2d3436;
+}
+.meeting-buttons-container {
+  background-color: #394144;
+  width: 100%;
+  margin: auto !important;
+  text-align: center;
+  border-radius: 35px;
+  height: 58px;
+  line-height: 58px;
+  -webkit-box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75);
+}
+.meeting-buttons-container > * {
+  border-radius: 50% !important;
+  margin-left: 3px !important;
+  margin-right: 3px !important;
+  margin-bottom: 5px !important;
+  background-color: rgb(27, 27, 27) !important;
+  height: 50px !important;
+  width: 50px !important;
+  color: white !important;
+}
+.meeting-buttons-container > *:hover {
+  background-color: #ffffff !important;
+  cursor: pointer;
+  color: black !important;
+  -webkit-box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75) !important;
+  -moz-box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75) !important;
+  box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75) !important;
+}
+// meeting end
+
+
+// chat start
+#chat-msg-container {
+  max-height: 80vh;
+  overflow-y: auto;
+  .chat-msg {
+    color: #ffffff;
+    .chat-sender {
+      .msg-send-time {
+        color: #979797;
+      }
+    }
+    .chat-msg-instance {
+      font-style: normal;
+      padding-bottom: 2px;
+    }
+    border-bottom: 1px solid rgba(151, 151, 151, .1); 
+    margin-bottom: 3px;
+    font-style: italic;
+  }
+}
+
+.chat-msg-util-container {
+  position: fixed;
+  bottom: 0;
+  .close-btn {
+    cursor: pointer;
+    margin-right: 5px;
+    color: red;
+    width: 10%;
+  }
+  #chat-msg-input {
+    width: auto;
+    background: #202124;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 7x;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+  }
+  .send-btn > * {
+    color: #1a73e8 !important;
+    width: 5%;
+  }
+}
+
+// chat end

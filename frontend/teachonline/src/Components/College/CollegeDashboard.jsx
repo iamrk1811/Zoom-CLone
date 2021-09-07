@@ -14,6 +14,7 @@ const CollegeDashboard = () => {
   const [collegeName, setCollegeName] = useState("");
 
   useEffect(() => {
+    
     // check if College logged in or not
     const authType = Cookies.get("authType");
 
@@ -40,7 +41,7 @@ const CollegeDashboard = () => {
         })
         .catch((err) => {});
     }
-  }, []); // empty array tells react to run this code only when refresh the page
+  }, [history]); // empty array tells react to run this code only when refresh the page
 
   //   sidebar toggler
   const sidebarToggler = (e) => {

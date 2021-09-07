@@ -28,7 +28,7 @@ const CollegeLogin = () => {
         }
       })
     }
-  }, []);
+  }, [history]);
 
   const collegeLoginFormHandler = (e) => {
     e.preventDefault();

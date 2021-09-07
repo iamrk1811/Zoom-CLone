@@ -38,7 +38,7 @@ const TeacherLogin = () => {
   return (
     <div className="teacher-login-container container my-4">
       <div className="row">
-        <div className="col-sm-12 col-md-8 col-lg-6" style={{margin:"auto"}}>
+        <div className="col-sm-12 col-md-8 col-lg-6" style={{ margin: "auto" }}>
           <h3 className="text-center">Teacher Login</h3>
           <div className="teacherLoginForm">
             {teacherLoginInfo === "error" && (
@@ -63,7 +63,8 @@ const TeacherLogin = () => {
               <InputLabel htmlFor="Password">Password</InputLabel>
               <Input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)} type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
               />
             </FormControl>
             <Button className="loginbtn" fullWidth={true} onClick={handleLogin}>

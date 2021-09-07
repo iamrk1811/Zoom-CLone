@@ -1,4 +1,4 @@
-import "./App.css";
+import "./media.scss";
 import "./style.scss"
 import "jquery/dist/jquery.min.js"
 import "bootstrap/dist/css/bootstrap.css";
@@ -9,6 +9,9 @@ import CollegeLogin from "./Components/College/CollegeLogin"
 import CollegeRegistration from "./Components/College/CollegeRegistration"
 import CollegeDashboard from "./Components/College/CollegeDashboard";
 import TeacherLogin from "./Components/Teacher/TeacherLogin";
+import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
+import Meeting from "./Components/Meetings/Meeting";
+
 
 const App = () => {
   return (
@@ -26,9 +29,14 @@ const App = () => {
         <Route path="/collegeDashboard" exact>
           <CollegeDashboard />
         </Route>
-
-        <Route path="/teacherLogin">
+        <Route path="/teacherLogin" exact>
           <TeacherLogin />
+        </Route>
+        <Route path="/teacherDashboard" exact>
+          <TeacherDashboard/>
+        </Route>
+        <Route path="/meet/:roomId" exact>
+          <Meeting />
         </Route>
       </Switch>
     </>

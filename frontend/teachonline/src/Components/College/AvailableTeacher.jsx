@@ -69,7 +69,7 @@ const collegeDeleteTeacher = (data) => {
     }).then((result) => {
         if(result.status === 200) {
             const updatedRows = rows.filter((obj) => {
-                return obj.teacherEmail != data;
+                return obj.teacherEmail !== data;
             })
             setRows(updatedRows);
         }
