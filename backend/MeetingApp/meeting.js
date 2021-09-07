@@ -5,9 +5,9 @@ const meeting = (io) => {
             // socket.to(roomId).emit('new-user-connected', userId)
             socket.broadcast.to(roomId).emit('new-user-connected', userId);
     
-            // socket.on('disconnect', () => {
-            //     socket.to(roomId).broadcast.emit('user-disconnected', userId)
-            // });
+            socket.on('disconnect', () => {
+                socket.broadcast.to(roomId).emit('user-disconnected', userId);
+            });
         })
     })
 }
