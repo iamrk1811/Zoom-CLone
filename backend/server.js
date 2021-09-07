@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 require("./database/conn");
 
 // using peer server
-app.use('/peerjs', peerServer)
+app.use('/', peerServer)
 
 // setting static file path
 app.use(express.static('public'))
