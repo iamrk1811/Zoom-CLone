@@ -13,9 +13,8 @@ const studentSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    cpassword: {
-        type:String,
-        required:true
+    stream: {
+        type: String
     }
 });
 

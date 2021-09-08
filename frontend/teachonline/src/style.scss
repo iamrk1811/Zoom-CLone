@@ -199,7 +199,7 @@ a:focus {
 }
 // collegeDashboard end
 // add teacher start
-.collegeOptionComponentContainer {
+.collegeOptionComponentContainer, .studentOptionComponentContainer, .streamOptionComponentContainer {
   background: #fff !important;
   padding: 10px;
   margin: 10px;
@@ -209,7 +209,7 @@ a:focus {
   border-radius: 5px;
   border: 2px solid rgba(99, 250, 119, 0.5);
 
-  .collegeOptionComponentInput {
+  .collegeOptionComponentInput,  .studentOptionComponentInput, .streamOptionComponentInput{
     margin: 5px;
   }
   .cbtn {
@@ -429,3 +429,7 @@ a:focus {
 }
 
 // chat end
+
+// add student start
+
+// add student end

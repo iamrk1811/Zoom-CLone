@@ -7,6 +7,8 @@ import { List, ListItem, ListItemText, Divider } from "@material-ui/core";
 import AddTeacher from "./AddTeacher";
 import AddStream from "./AddStream";
 import AvailableTeachers from "./AvailableTeacher";
+import AddStudent from "./AddStudent";
+
 
 const CollegeDashboard = () => {
   const history = useHistory();
@@ -14,7 +16,6 @@ const CollegeDashboard = () => {
   const [collegeName, setCollegeName] = useState("");
 
   useEffect(() => {
-    
     // check if College logged in or not
     const authType = Cookies.get("authType");
 
@@ -94,6 +95,17 @@ const CollegeDashboard = () => {
               >
                 <ListItemText primary="Add Stream" />
               </ListItem>
+              <ListItem
+                button
+                onClick={() => {
+                  setMainContent("Add Student");
+                }}
+              >
+                <ListItemText primary="Add Student" />
+              </ListItem>
+              <ListItem button onClick={() => {}}>
+                <ListItemText primary="Delete Student" />
+              </ListItem>
               <Divider />
             </List>
           </ul>
@@ -125,9 +137,12 @@ const CollegeDashboard = () => {
             </div>
           </nav>
           <div className="main-content" id="main-content">
-            {mainContent === "Add Teacher" && <AddTeacher collegeName={collegeName} />}
+            {mainContent === "Add Teacher" && (
+              <AddTeacher collegeName={collegeName} />
+            )}
             {mainContent === "Available Teachers" && <AvailableTeachers />}
             {mainContent === "Add Stream" && <AddStream />}
+            {mainContent === "Add Student" && <AddStudent />}
           </div>
         </div>
       </div>

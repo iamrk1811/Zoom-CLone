@@ -26,7 +26,8 @@ const collegeSchema = mongoose.Schema({
         {
             token: String
         }
-    ]
+    ],
+    streams: []
 })
 
 const College = mongoose.model("COLLEGE", collegeSchema);

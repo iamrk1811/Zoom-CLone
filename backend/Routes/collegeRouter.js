@@ -257,4 +257,36 @@ collegeRouter.post("/collegeDeleteTeacherBackend", (req, res) => {
     });
 });
 
+// adding new stream
+collegeRouter.post("/collegeAddStreamBackend", (req, res) => {
+  const { stream } = req.body;
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+
+  College.findOne({ _id: jwtverifytoken._id }).then((college) => {
+    if (!college) {
+      res.status(401).json({ err: "Unauthorized College" });
+    } else {
+      const streams = college.streams;
+      if (streams.includes(stream)) {
+        res.status(401).json({ err: "Stream Already Added" });
+      } else {
+        streams.push(stream);
+        College.updateOne(
+          { _id: jwtverifytoken._id },
+          {
+            $set: {
+              streams: streams,
+            },
+          }
+        ).then((r) => {
+          res.status(200).json({msg:"Successfully Added"});
+        }).catch((e) => {
+          res.status(401).json({ err: "Failed to add" });
+        })
+      }
+    }
+  });
+});
+
 module.exports = collegeRouter;
