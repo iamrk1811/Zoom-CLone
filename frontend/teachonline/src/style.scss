@@ -28,40 +28,6 @@ body {
   -webkit-box-shadow: -10px 10px 15px -11px rgba(0, 0, 0, 0.63);
   -moz-box-shadow: -10px 10px 15px -11px rgba(0, 0, 0, 0.63);
 }
-// .teacherRgBtn, .studentRgBtn {
-//   color: #fff !important;
-//   box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-//   -webkit-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-//   -moz-box-shadow: -10px 10px 15px -11px rgba(0,0,0,0.63);
-//   padding: 10px !important;
-//   font-size: 14px !important;
-// }
-
-// .teacher-register-container {
-//   position: relative;
-//   height: 100vh;
-//   width: 100% !important;
-//   overflow: hidden;
-
-// }
-// .teacher-register-container form{
-//   position: absolute;
-//   width: 80%;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   padding: 10px;
-//   background-color: #fff;
-//   box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-//   -webkit-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-//   -moz-box-shadow: -10px 10px 5px -11px rgba(0,0,0,0.63);
-//   border-radius: 5px;
-// }
-// .teacher-register-container .teacheRgInput{
-//   margin: 10px;
-//   width: 100%;
-//   background-color: transparent;
-// }
 .errorMsg {
   border: 1px solid red;
   line-height: 16px;
@@ -120,6 +86,7 @@ a:focus {
   text-decoration: none;
   transition: all 0.3s;
 }
+
 
 .navbar {
   padding: 15px 10px;
@@ -340,7 +307,11 @@ a:focus {
   .single-video {
     border-radius: 15px;
     background-color: #2d3436;
+    
     padding: 0;
+  }
+  .single-video:empty {
+    display: none;
   }
   video {
     margin-top: 5px !important;
@@ -398,7 +369,15 @@ a:focus {
   -moz-box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75) !important;
   box-shadow: -2px 4px 10px 0px rgba(50, 50, 50, 0.75) !important;
 }
+.red {
+  background-color: #e94335 !important;
+}
+.blue {
+  background-color: #8ab4f8 !important;
+}
 // meeting end
+
+
 
 
 // chat start
