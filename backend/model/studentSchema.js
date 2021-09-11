@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const studentSchema = mongoose.Schema({
-    fullname: {
+    name: {
         type:String,
         required:true
     },
-    mobile: {
+    cred: {
         type:String,
         required:true
     },
@@ -13,9 +13,12 @@ const studentSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    session : {
+        type: String
+    },
     stream: {
         type: String
-    }
+    },
 });
 
 

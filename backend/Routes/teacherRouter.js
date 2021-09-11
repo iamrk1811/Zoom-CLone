@@ -4,10 +4,11 @@ const { validateEmail, validateMobile } = require("../utils/util");
 const Teacher = require("../model/teacherSchema");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {AuthenticationTeacher} = require("../utils/authentication");
 
 
 
-// verify teacher
+// teacher login
 teacherRouter.post("/teacherLoginBackend", (req, res) => {
   const {email, password} = req.body;
   Teacher.findOne({email: email}).then( (data) => {
@@ -24,11 +25,11 @@ teacherRouter.post("/teacherLoginBackend", (req, res) => {
           // setting cookie
           res.cookie("authType", "teacher", {
             maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
-            // httpOnly: true,
           });
           res.cookie("authToken", token, {
             maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
           })
+
           res.status(200).json({msg : "login successful"});
         }
       });
@@ -40,4 +41,11 @@ teacherRouter.post("/teacherLoginBackend", (req, res) => {
   })
 });
 
+// verify teacher
+teacherRouter.post('/teacherVerifyUser', AuthenticationTeacher, (req, res) => {
+  res.status(200).send({
+    msg: "user verified",
+    email: req.User.email
+  });
+})
 module.exports = teacherRouter;

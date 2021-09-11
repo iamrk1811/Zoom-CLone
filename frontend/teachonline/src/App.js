@@ -11,6 +11,8 @@ import CollegeDashboard from "./Components/College/CollegeDashboard";
 import TeacherLogin from "./Components/Teacher/TeacherLogin";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import Meeting from "./Components/Meetings/Meeting";
+import StudentLogin from './Components/Student/StudentLogin';
+
 
 
 const App = () => {
@@ -34,6 +36,9 @@ const App = () => {
         </Route>
         <Route path="/teacherDashboard" exact>
           <TeacherDashboard/>
+        </Route>
+        <Route path="/studentLogin" exact>
+          <StudentLogin />
         </Route>
         <Route path="/meet/:roomId" exact>
           <Meeting />

@@ -1,11 +1,12 @@
 const express = require("express");
 const collegeRouter = express.Router();
-const { validateEmail } = require("../utils/util");
+const { validateEmail, validateMobile } = require("../utils/util");
 const College = require("../model/collegeSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const AuthenticationCollege = require("../utils/authentication");
+const {AuthenticationCollege} = require("../utils/authentication");
 const Teacher = require("../model/teacherSchema");
+const Student = require("../model/studentSchema");
 
 // college register
 collegeRouter.post("/collegeRegisterBackend", (req, res) => {
@@ -279,14 +280,90 @@ collegeRouter.post("/collegeAddStreamBackend", (req, res) => {
               streams: streams,
             },
           }
-        ).then((r) => {
-          res.status(200).json({msg:"Successfully Added"});
-        }).catch((e) => {
-          res.status(401).json({ err: "Failed to add" });
-        })
+        )
+          .then((r) => {
+            res.status(200).json({ msg: "Successfully Added" });
+          })
+          .catch((e) => {
+            res.status(401).json({ err: "Failed to add" });
+          });
       }
     }
   });
 });
 
+// getting all available streams of a college
+collegeRouter.post("/collegeGetAvailableStreamBackend", (req, res) => {
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+  College.findOne({ _id: jwtverifytoken._id }).then((college) => {
+    if (college) {
+      res.status(200).json({
+        streams: college.streams,
+      });
+    }
+  });
+});
+
+// college adding student
+collegeRouter.post("/collegeAddStudentBackend", (req, res) => {
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+  College.findOne({ _id: jwtverifytoken._id }).then((college) => {
+    if (college) {
+      let { name, cred, password, session, stream } = req.body;
+      cred.trim();
+      name = name.trim();
+      session = session.trim();
+      stream = stream.trim();
+
+      // check for blank input
+      if (!name || !cred || !password || !session || !stream) {
+        return res.status(400).json({ err: "Invalid input" });
+      }
+
+      // validation
+      if (!validateEmail(cred) && !validateMobile(cred)) {
+        return res.status(400).json({ err: "Enter Valid Email / Mobile" });
+      }
+
+      if (password.length < 6) {
+        return res
+          .status(400)
+          .json({ err: "Password length should be atleast 6 character" });
+      }
+
+      
+      // check if this student already exist
+      Student.findOne({cred}).then( async (result) => {
+        if (result) {
+          // student already exist
+          res.status(409).json({ err: "Student Already Exist" });
+        } else {
+          const student = new Student({
+            name,
+            cred,
+            password,
+            session,
+            stream,
+          });
+          // generate salt to hash password
+          const salt = await bcrypt.genSalt(10);
+          student.password = await bcrypt.hash(student.password, salt);
+
+          student
+            .save()
+            .then(() => {
+              res.status(200).json({ msg: "Student Successfully Registered" });
+            })
+            .catch((err) => {
+              res.status(500).json({ err: "Failed to register" + err });
+            });
+        }
+      });
+    } else {
+      res.status(401).json({ err: "Unauthorized College" });
+    }
+  });
+});
 module.exports = collegeRouter;

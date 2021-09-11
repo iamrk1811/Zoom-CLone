@@ -1,5 +1,5 @@
 import { FormControl, Button, Input, InputLabel } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router";
 
@@ -34,6 +34,21 @@ const TeacherLogin = () => {
         setErrorMsg("error");
       });
   };
+
+
+  useEffect(() => {
+    fetch('/teacherVerifyUser', {
+      method:"POST",
+      headers:{
+        'Content-Type':"application/json",
+        Accept:'application/json'
+      }
+    }).then((result) => {
+      if(result.status ===  200) {
+        history.replace('/teacherDashboard');
+      }
+    })
+  }, [])
 
   return (
     <div className="teacher-login-container container my-4">

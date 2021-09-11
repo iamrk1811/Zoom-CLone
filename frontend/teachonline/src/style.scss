@@ -35,6 +35,7 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
 .collegeRegisterForm,
 .collegeLoginForm {
   padding: 10px;
@@ -221,10 +222,20 @@ a:focus {
 }
 // add teacher end
 
+.selectBox {
+  border: none !important;
+  outline: none !important;
+  scroll-behavior: smooth;
+}
+// add stream start
+
+// add stream end
+
+
 // teacher login start
 
-.teacher-login-container {
-  .teacherLoginForm {
+.teacher-login-container, .student-login-container {
+  .teacherLoginForm, .studentLoginForm {
     background-color: #fff !important;
     padding: 10px;
     margin: 10px;
@@ -237,7 +248,7 @@ a:focus {
   .loginbtn {
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #24b6d3;
+    background-color: #00d5ff;
   }
   .loginbtn:hover {
     background-color: #5ad1e9;

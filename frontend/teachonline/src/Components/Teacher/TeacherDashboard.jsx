@@ -6,6 +6,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 
 
@@ -38,7 +40,36 @@ const TeacherDashboard = () => {
     sidebar.classList.toggle("active");
   };
   //   logout
-  const teacherLogout = () => {};
+  const teacherLogout = () => {
+    Cookies.remove("authType");
+    Cookies.remove("authToken");
+    history.replace("/teacherLogin");
+  };
+
+
+  useEffect(() => {
+    const authType = Cookies.get("authType");
+    // check if this token is valid or not
+    if (authType !== "teacher") {
+      history.replace("/teacherLogin");
+    } else {
+      fetch("/teacherVerifyUser", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then(async (res) => {
+          // if status code is not 200 that means user is not verified
+          if (res.status !== 200) {
+            history.replace("/collegeLogin");
+          }
+        })
+        .catch((err) => {});
+    }
+  }, [])
   return (
     <>
       <div className="wrapper">
