@@ -8,6 +8,7 @@ import AddTeacher from "./AddTeacher";
 import AddStream from "./AddStream";
 import AvailableTeachers from "./AvailableTeacher";
 import AddStudent from "./AddStudent";
+import SendNotificationClg from "../SendNotificationClg";
 
 
 const CollegeDashboard = () => {
@@ -102,6 +103,14 @@ const CollegeDashboard = () => {
                 }}
               >
                 <ListItemText primary="Add Student" />
+              </ListItem>              
+              <ListItem
+                button
+                onClick={() => {
+                  setMainContent("Send Notification");
+                }}
+              >
+                <ListItemText primary="Send Notification" />
               </ListItem>
               <ListItem button onClick={() => {}}>
                 <ListItemText primary="Delete Student" />
@@ -143,6 +152,7 @@ const CollegeDashboard = () => {
             {mainContent === "Available Teachers" && <AvailableTeachers />}
             {mainContent === "Add Stream" && <AddStream />}
             {mainContent === "Add Student" && <AddStudent />}
+            {mainContent === "Send Notification" && <SendNotificationClg />}
           </div>
         </div>
       </div>

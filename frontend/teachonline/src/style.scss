@@ -200,7 +200,7 @@ a:focus {
 }
 // collegeDashboard end
 // add teacher start
-.collegeOptionComponentContainer, .studentOptionComponentContainer, .streamOptionComponentContainer {
+.collegeOptionComponentContainer, .studentOptionComponentContainer, .streamOptionComponentContainer, .notificationOptionComponentContainer {
   background: #fff !important;
   padding: 10px;
   margin: 10px;
@@ -210,7 +210,7 @@ a:focus {
   border-radius: 5px;
   border: 2px solid rgba(99, 250, 119, 0.5);
 
-  .collegeOptionComponentInput,  .studentOptionComponentInput, .streamOptionComponentInput{
+  .collegeOptionComponentInput,  .studentOptionComponentInput, .streamOptionComponentInput, .notificationOptionComponentInput{
     margin: 5px;
   }
   .cbtn {
@@ -227,10 +227,14 @@ a:focus {
   outline: none !important;
   scroll-behavior: smooth;
 }
-// add stream start
 
-// add stream end
+// send notification start
+.send-notification {
+  background-color: #ffffff !important;
+  border-radius: 15px !important;
 
+}
+// send notification end
 
 // teacher login start
 
