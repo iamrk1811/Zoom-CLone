@@ -4,7 +4,7 @@ const { validateMobile } = require("../utils/util");
 const Student = require("../model/studentSchema");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const {AuthenticationStudent} = require('../utils/authentication');
 
 // login backend logic for student
 studentRouter.post('/studentLoginBackend', (req, res) => {
@@ -40,6 +40,11 @@ studentRouter.post('/studentLoginBackend', (req, res) => {
     res.status(400).json({err:"Invalid Credentials"})
   })
 
+})
+
+// verify student or not
+studentRouter.post('/studentVerifyUser', AuthenticationStudent, (req, res) => {
+  res.status(200).json({msg:"user verified"});
 })
 
 module.exports = studentRouter;

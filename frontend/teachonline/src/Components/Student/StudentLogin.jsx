@@ -2,6 +2,7 @@ import { FormControl, Button, Input, InputLabel } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router";
+import Cookies from 'js-cookie';
 
 const StudentLogin = () => {
   const [cred, setCred] = useState("");
@@ -34,6 +35,28 @@ const StudentLogin = () => {
     });
   };
 
+  // check if token stored or not 
+  // if yes try to login
+  useEffect(() => {
+    const token = Cookies.get('authToken');
+    const authType = Cookies.get('authType');
+    if(token && authType) {
+      fetch("/studentVerifyUser", {
+        method:"POST",
+        headers:{
+          'Content-Type' :'application/json',
+          Accept:'application/json'
+        }
+      }).then((result) => {
+        if(result.status ===  200) {
+          history.replace('/studentDashboard');
+        }
+      })
+    }
+  }, [])
+
+
+  
   return (
     <div className="student-login-container container my-4">
       <div className="row">

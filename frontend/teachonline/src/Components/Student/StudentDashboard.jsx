@@ -6,76 +6,28 @@ import {
   Button,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
-
-
-const TeacherDashboard = () => {
+const StudentDashboard = () => {
   const history = useHistory();
-
-  const instantClass = () => {
-    fetch('/generateMeetingId', {
-      method:"POST",
-      header: {
-        'Content-Type' : 'application/json',
-        Accept : 'application/json'
-      },
-      body: JSON.stringify({
-        teacher:'rakibteacher'
-      })
-    }).then((result) => {
-      if (result.status === 200) {
-        result.json().then((data) => {
-          console.log(data.meetingId);
-          history.push(`/meet/${data.meetingId}`);
-        })
-      }
-    })
-  }
-
   //   sidebar toggler
   const sidebarToggler = (e) => {
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("active");
   };
   //   logout
-  const teacherLogout = () => {
+  const studentLogout = () => {
     Cookies.remove("authType");
     Cookies.remove("authToken");
-    history.replace("/teacherLogin");
+    history.replace("/studentLogin");
   };
-
-
-  useEffect(() => {
-    const authType = Cookies.get("authType");
-    // check if this token is valid or not
-    if (authType !== "teacher") {
-      history.replace("/teacherLogin");
-    } else {
-      fetch("/teacherVerifyUser", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      })
-        .then(async (res) => {
-          // if status code is not 200 that means user is not verified
-          if (res.status !== 200) {
-            history.replace("/collegeLogin");
-          }
-        })
-        .catch((err) => {});
-    }
-  }, [])
   return (
     <>
       <div className="wrapper">
         <nav id="sidebar">
           <div className="sidebar-header">
-            <h3>Teacher Name / Pic to be added</h3>
+            <h3>Student Name / Pic to be added</h3>
           </div>
 
           <ul className="list-unstyled components">
@@ -84,13 +36,8 @@ const TeacherDashboard = () => {
             <List component="nav">
               <Divider />
               <Divider />
-              <ListItem
-                button
-                onClick={() => {
-                  instantClass();
-                }}
-              >
-                <ListItemText primary="Instant Class" />
+              <ListItem button>
+                <ListItemText primary="Notification" />
               </ListItem>
               <Divider />
               <ListItem
@@ -99,7 +46,7 @@ const TeacherDashboard = () => {
                   //   setMainContent("Available Teachers");
                 }}
               >
-                <ListItemText primary="Schedule Class" />
+                <ListItemText primary="Notice Board" />
               </ListItem>
               <Divider />
               <ListItem
@@ -108,7 +55,7 @@ const TeacherDashboard = () => {
                   //   setMainContent("Add Stream");
                 }}
               >
-                <ListItemText primary="Attendance" />
+                <ListItemText primary="Chat with classmate" />
               </ListItem>
               <Divider />
               <ListItem
@@ -117,7 +64,7 @@ const TeacherDashboard = () => {
                   //   setMainContent("Add Stream");
                 }}
               >
-                <ListItemText primary="Allow Student Policy" />
+                <ListItemText primary="Chat with Teacher" />
               </ListItem>
               <Divider />
               <ListItem
@@ -126,17 +73,9 @@ const TeacherDashboard = () => {
                   //   setMainContent("Add Stream");
                 }}
               >
-                <ListItemText primary="Change Password" />
+                <ListItemText primary="Group" />
               </ListItem>
-              <Divider />
-              <ListItem
-                button
-                onClick={() => {
-                  //   setMainContent("Add Stream");
-                }}
-              >
-                <ListItemText primary="Send Student Notification" />
-              </ListItem>
+
               <Divider />
               <Divider />
             </List>
@@ -145,7 +84,7 @@ const TeacherDashboard = () => {
           <ul className="list-unstyled CTAs">
             <li>
               <Button
-                onClick={teacherLogout}
+                onClick={studentLogout}
                 className="logout"
                 style={{ margin: "auto", display: "block" }}
               >
@@ -169,8 +108,7 @@ const TeacherDashboard = () => {
             </div>
           </nav>
           <div className="main-content" id="main-content">
-            <h2>To Be Added Teacher Basic Profile</h2>
-            
+            <h2>To Be added Student Basic Profile</h2>
           </div>
         </div>
       </div>
@@ -178,4 +116,4 @@ const TeacherDashboard = () => {
   );
 };
 
-export default TeacherDashboard;
+export default StudentDashboard;

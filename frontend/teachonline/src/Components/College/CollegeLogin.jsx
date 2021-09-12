@@ -10,11 +10,11 @@ const CollegeLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   useEffect(() => {
     // if user is already logged in/ already stored token
-    const token = Cookies.get('authToken');
-    if (token) {
+    const token = Cookies.get("authToken");
+    const authType = Cookies.get("authType");
+    if (token && authType) {
       fetch("/collegeVerifyUser", {
         method: "POST",
         headers: {
@@ -24,9 +24,9 @@ const CollegeLogin = () => {
         credentials: "include",
       }).then((result) => {
         if (result.status === 200) {
-          history.replace('/collegeDashboard');
+          history.replace("/collegeDashboard");
         }
-      })
+      });
     }
   }, [history]);
 

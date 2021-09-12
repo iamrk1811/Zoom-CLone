@@ -1,19 +1,18 @@
 import "./media.scss";
-import "./style.scss"
-import "jquery/dist/jquery.min.js"
+import "./style.scss";
+import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Switch, Route } from "react-router-dom";
 import Homepage from "./Components/Homepage";
-import CollegeLogin from "./Components/College/CollegeLogin"
-import CollegeRegistration from "./Components/College/CollegeRegistration"
+import CollegeLogin from "./Components/College/CollegeLogin";
+import CollegeRegistration from "./Components/College/CollegeRegistration";
 import CollegeDashboard from "./Components/College/CollegeDashboard";
 import TeacherLogin from "./Components/Teacher/TeacherLogin";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import Meeting from "./Components/Meetings/Meeting";
-import StudentLogin from './Components/Student/StudentLogin';
-
-
+import StudentLogin from "./Components/Student/StudentLogin";
+import StudentDashboard from "./Components/Student/StudentDashboard";
 
 const App = () => {
   return (
@@ -35,10 +34,13 @@ const App = () => {
           <TeacherLogin />
         </Route>
         <Route path="/teacherDashboard" exact>
-          <TeacherDashboard/>
+          <TeacherDashboard />
         </Route>
         <Route path="/studentLogin" exact>
           <StudentLogin />
+        </Route>
+        <Route path="/studentDashboard" exact>
+          <StudentDashboard />
         </Route>
         <Route path="/meet/:roomId" exact>
           <Meeting />

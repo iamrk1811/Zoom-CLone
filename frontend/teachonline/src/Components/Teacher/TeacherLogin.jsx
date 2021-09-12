@@ -2,6 +2,7 @@ import { FormControl, Button, Input, InputLabel } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router";
+import Cookies from 'js-cookie';
 
 const TeacherLogin = () => {
   const [email, setEmail] = useState("");
@@ -36,18 +37,23 @@ const TeacherLogin = () => {
   };
 
 
+  // check if token stored or not if yes try to log in
   useEffect(() => {
-    fetch('/teacherVerifyUser', {
-      method:"POST",
-      headers:{
-        'Content-Type':"application/json",
-        Accept:'application/json'
-      }
-    }).then((result) => {
-      if(result.status ===  200) {
-        history.replace('/teacherDashboard');
-      }
-    })
+    const token = Cookies.get('authToken');
+    const authType = Cookies.get('authType');
+    if(token && authType) {
+      fetch('/teacherVerifyUser', {
+        method:"POST",
+        headers:{
+          'Content-Type':"application/json",
+          Accept:'application/json'
+        }
+      }).then((result) => {
+        if(result.status ===  200) {
+          history.replace('/teacherDashboard');
+        }
+      })
+    }
   }, [])
 
   return (
