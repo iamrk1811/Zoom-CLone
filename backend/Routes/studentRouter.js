@@ -2,57 +2,44 @@ const express = require("express");
 const studentRouter = express.Router();
 const { validateMobile } = require("../utils/util");
 const Student = require("../model/studentSchema");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-studentRouter.post("/studentRegisterBackend", (req, res) => {
-  let { fullname, mobile, password, cpassword } = req.body;
 
-  // trim
-  fullname = fullname.trim();
-  mobile = mobile.trim();
-  password = password.trim();
-  cpassword = cpassword.trim();
+// login backend logic for student
+studentRouter.post('/studentLoginBackend', (req, res) => {
+  let {cred, password} = req.body;
+  cred = cred.trim();
 
-  // check for blank input
-  if (!fullname || !mobile || !password || !cpassword) {
-    return res.status(400).json({ err: "Invalid Input" });
-  }
+  Student.findOne({cred}).then((result) => {
+    if(result) {
+      bcrypt.compare(password, result.password, (error, isPasswordMatched) => {
+        if(error || !isPasswordMatched) {
+          res.status(400).json({err:"Invalid Credentials"})
+        } else {
+          const token = jwt.sign({_id: result._id}, process.env.jwtsecretkey);
+          // updating the teacher with token
+          result.tokens = result.tokens.concat({ token: token });
+          result.save();
 
-  // validation
-  if (!validateMobile(mobile)) {
-    return res.status(400).json({ err: "Please Enter Valid Mobile" });
-  }
-  if (password.length < 6) {
-    return res
-      .status(400)
-      .json({ err: "Password length should be atleast 6 character" });
-  }
-  if (password != cpassword) {
-    return res.status(400).json({ err: "Password not matching" });
-  }
+          // setting cookie
+          res.cookie("authType", "student", {
+            maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
+          });
+          res.cookie("authToken", token, {
+            maxAge: 30 * 24 * 3600 * 1000, // 30 days in miliseconds
+          })
 
-  // check if student is already registered
-  Student.findOne({ mobile: mobile }).then((result) => {
-    if (result) {
-      return res.status(409).json({ err: "Student Already Exist" });
+          res.status(200).json({msg : "login successful"});
+        }
+      })
     } else {
-      //   creating instance of student model then save it into DATABASE
-      const student = new Student({
-        fullname,
-        mobile,
-        password,
-        cpassword,
-      });
-
-      student
-        .save()
-        .then(() => {
-          res.status(200).json({ msg: "student registered" });
-        })
-        .catch((err) => {
-            res.status(500).json({ err: "failed to register" });
-        });
+      res.status(400).json({err:"Invalid Credentials"})
     }
-  });
-});
+  }).catch((err) => {
+    res.status(400).json({err:"Invalid Credentials"})
+  })
+
+})
 
 module.exports = studentRouter;

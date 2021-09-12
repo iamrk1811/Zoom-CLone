@@ -3,34 +3,36 @@ import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router";
 
-
-
 const StudentLogin = () => {
-  
-  const [cred, setCred] = useState('');
-  const [password, setPassword] = useState('');
+  const [cred, setCred] = useState("");
+  const [password, setPassword] = useState("");
   const [studentLoginInfo, setStudentLoginInfo] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const history = useHistory();
 
   const handleLogin = () => {
-    fetch('/studentLoginBackend', {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
+    fetch("/studentLoginBackend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        cred, password
-      })
+        cred,
+        password,
+      }),
     }).then(async (result) => {
       const data = await result.json();
-      if(result.status === 200) {
-
+      if (result.status === 200) {
+        setStudentLoginInfo("success");
+        setSuccessMsg("Login Successful");
+        history.replace("/studentDashboard");
       } else {
-        
+        setStudentLoginInfo("error");
+        setErrorMsg(data.err);
       }
-    })
-  }
+    });
+  };
 
   return (
     <div className="student-login-container container my-4">
@@ -50,6 +52,8 @@ const StudentLogin = () => {
               <Input
                 value={cred}
                 onChange={(e) => {
+                  setStudentLoginInfo("");
+                  setErrorMsg("");
                   setCred(e.target.value);
                 }}
                 type="email"
@@ -60,7 +64,11 @@ const StudentLogin = () => {
               <InputLabel htmlFor="Password">Password</InputLabel>
               <Input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setStudentLoginInfo("");
+                  setErrorMsg("");
+                  setPassword(e.target.value);
+                }}
                 type="password"
               />
             </FormControl>
