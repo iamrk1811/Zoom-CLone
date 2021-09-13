@@ -36,7 +36,9 @@ function storeNotificationForTeachers(title, collegeId, college) {
 }
 
 // store notification for STUDENT send by college or teachers
-function storeNotificationForStudents() {}
+function storeNotificationForStudents() {
+
+}
 
 // get currentTime in AM/PM format
 function getCurrentTimeAmPM() {

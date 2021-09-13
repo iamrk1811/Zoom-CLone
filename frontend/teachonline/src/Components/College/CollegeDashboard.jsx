@@ -10,11 +10,11 @@ import AvailableTeachers from "./AvailableTeacher";
 import AddStudent from "./AddStudent";
 import SendNotificationClg from "../SendNotificationClg";
 
-
 const CollegeDashboard = () => {
   const history = useHistory();
   const [mainContent, setMainContent] = useState("");
   const [collegeName, setCollegeName] = useState("");
+  const [collegeEmailId, setCollegeEmailId] = useState("");
 
   useEffect(() => {
     // check if College logged in or not
@@ -38,6 +38,7 @@ const CollegeDashboard = () => {
             history.replace("/collegeLogin");
           } else {
             const data = await res.json();
+            setCollegeEmailId(data.email);
             setCollegeName(data.collegeName);
           }
         })
@@ -103,14 +104,14 @@ const CollegeDashboard = () => {
                 }}
               >
                 <ListItemText primary="Add Student" />
-              </ListItem>              
+              </ListItem>
               <ListItem
                 button
                 onClick={() => {
                   setMainContent("Send Notification");
                 }}
               >
-                <ListItemText primary="Send Notification" />
+                <ListItemText primary="Send Notification to Teachers" />
               </ListItem>
               <ListItem button onClick={() => {}}>
                 <ListItemText primary="Delete Student" />
@@ -147,7 +148,7 @@ const CollegeDashboard = () => {
           </nav>
           <div className="main-content" id="main-content">
             {mainContent === "Add Teacher" && (
-              <AddTeacher collegeName={collegeName} />
+              <AddTeacher collegeName={collegeName} collegeEmailId={collegeEmailId} />
             )}
             {mainContent === "Available Teachers" && <AvailableTeachers />}
             {mainContent === "Add Stream" && <AddStream />}

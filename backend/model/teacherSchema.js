@@ -14,6 +14,7 @@ const teacherSchema = mongoose.Schema({
     required: true,
   },
   collegeName: String,
+  collegeEmailId:String,
   stream: String,
   bio: String,
   Rating: Number,

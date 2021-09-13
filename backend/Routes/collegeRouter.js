@@ -141,7 +141,7 @@ collegeRouter.post("/collegeVerifyUser", AuthenticationCollege, (req, res) => {
 
 // adding teacher to database
 collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
-  let { fullname, email, password, collegeName, stream } = req.body;
+  let { fullname, email, password, collegeName, collegeEmailId, stream } = req.body;
   fullname = fullname.trim();
   email = email.trim();
   stream = stream.trim();
@@ -171,6 +171,7 @@ collegeRouter.post("/collegeAddTeacherBackend", (req, res) => {
         email,
         password,
         collegeName,
+        collegeEmailId,
         stream,
       });
 
@@ -375,18 +376,18 @@ collegeRouter.post('/collegeAddNotificationBackend', (req, res) => {
 
   College.findOne({_id: jwtverifytoken._id}).then((college) => {
     if(college) {
-      const {sendToTeacher, sendToStudent, notification} = req.body;
+      const {sendToTeacher, notification} = req.body;
       if(sendToTeacher) {
-        storeNotificationForTeachers(notification, jwtverifytoken._id, college)
-      }
-      if(sendToStudent) {
-        
-      }
-      
+        if(storeNotificationForTeachers(notification, jwtverifytoken._id, college)) {
+          res.status(200).json({msg:"success"});
+        } else {
+          res.status(401).json({err:"error"});
+        }
+      }  
     } else {
       res.status(401).json({err:"Unauthorized"})
     }
   })   
 })
-
+ 
 module.exports = collegeRouter;

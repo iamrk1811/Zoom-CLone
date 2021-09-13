@@ -10,13 +10,9 @@ const SendNotificationClg = () => {
   const [notificationAddedInfo, setNotificationAddedInfo] = useState("");
   const [notification, setNotification] = useState("");
   const [teacherCheck, setTeacherCheck] = useState(true);
-  const [studentCheck, setStudentCheck] = useState(false);
 
   const handleTeacherChange = (e) => {
     setTeacherCheck(e.target.checked);
-  }
-  const handleStudentChange = (e) => {
-    setStudentCheck(e.target.checked);
   }
 
   const handleButtonClick = () => {
@@ -27,7 +23,6 @@ const SendNotificationClg = () => {
       },
       body: JSON.stringify({
         sendToTeacher: teacherCheck,
-        sendToStudent: studentCheck,
         notification: notification
       }),
     }).then((result) => {
@@ -81,17 +76,6 @@ const SendNotificationClg = () => {
                   />
                 }
                 label="Teacher"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={studentCheck}
-                    onChange={handleStudentChange}
-                    name="checkBoxTeacher"
-                    color="primary"
-                  />
-                }
-                label="Student"
               />
               <Button
                 onClick={handleButtonClick}

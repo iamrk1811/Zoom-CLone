@@ -41,6 +41,7 @@ function AddTeacher(props) {
         email: teacher.email,
         password: teacher.password,
         collegeName: props.collegeName,
+        collegeEmailId: props.collegeEmailId,
         stream: teacher.stream,
       }),
     })
