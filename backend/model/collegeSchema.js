@@ -27,7 +27,13 @@ const collegeSchema = mongoose.Schema({
             token: String
         }
     ],
-    streams: []
+    streams: [],
+    teacherNotifications:[{
+        title:String,
+        time:String,
+        by:String
+    }]
+
 })
 
 const College = mongoose.model("COLLEGE", collegeSchema);

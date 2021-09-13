@@ -1,12 +1,13 @@
 const express = require("express");
 const collegeRouter = express.Router();
-const { validateEmail, validateMobile } = require("../utils/util");
+const { validateEmail, validateMobile, storeNotificationForTeachers } = require("../utils/util");
 const College = require("../model/collegeSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {AuthenticationCollege} = require("../utils/authentication");
 const Teacher = require("../model/teacherSchema");
 const Student = require("../model/studentSchema");
+
 
 // college register
 collegeRouter.post("/collegeRegisterBackend", (req, res) => {
@@ -366,4 +367,26 @@ collegeRouter.post("/collegeAddStudentBackend", (req, res) => {
     }
   });
 });
+
+
+collegeRouter.post('/collegeAddNotificationBackend', (req, res) => {
+  const token = req.cookies.authToken;
+  const jwtverifytoken = jwt.verify(token, process.env.jwtsecretkey);
+
+  College.findOne({_id: jwtverifytoken._id}).then((college) => {
+    if(college) {
+      const {sendToTeacher, sendToStudent, notification} = req.body;
+      if(sendToTeacher) {
+        storeNotificationForTeachers(notification, jwtverifytoken._id, college)
+      }
+      if(sendToStudent) {
+        
+      }
+      
+    } else {
+      res.status(401).json({err:"Unauthorized"})
+    }
+  })   
+})
+
 module.exports = collegeRouter;

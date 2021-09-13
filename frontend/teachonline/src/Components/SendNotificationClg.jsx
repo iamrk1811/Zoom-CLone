@@ -9,11 +9,15 @@ const SendNotificationClg = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [notificationAddedInfo, setNotificationAddedInfo] = useState("");
   const [notification, setNotification] = useState("");
-  const [checked, setChecked] = useState(true);
+  const [teacherCheck, setTeacherCheck] = useState(true);
+  const [studentCheck, setStudentCheck] = useState(false);
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  const handleTeacherChange = (e) => {
+    setTeacherCheck(e.target.checked);
+  }
+  const handleStudentChange = (e) => {
+    setStudentCheck(e.target.checked);
+  }
 
   const handleButtonClick = () => {
     fetch("/collegeAddNotificationBackend", {
@@ -21,8 +25,20 @@ const SendNotificationClg = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
-    });
+      body: JSON.stringify({
+        sendToTeacher: teacherCheck,
+        sendToStudent: studentCheck,
+        notification: notification
+      }),
+    }).then((result) => {
+      if(result.status === 200) {
+        setNotificationAddedInfo('success');
+        setSuccessMsg("Notification sent successfully");
+      } else {
+        setNotificationAddedInfo('error');
+        setErrorMsg("Something went wrong");
+      }
+    })
   };
 
   return (
@@ -58,8 +74,8 @@ const SendNotificationClg = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={teacherCheck}
+                    onChange={handleTeacherChange}
                     name="checkBoxTeacher"
                     color="primary"
                   />
@@ -69,8 +85,8 @@ const SendNotificationClg = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={studentCheck}
+                    onChange={handleStudentChange}
                     name="checkBoxTeacher"
                     color="primary"
                   />
