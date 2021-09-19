@@ -8,31 +8,26 @@ import SendIcon from "@material-ui/icons/Send";
 import MicIcon from "@material-ui/icons/Mic";
 import CallEndIcon from "@material-ui/icons/CallEnd";
 import ChatIcon from "@material-ui/icons/Chat";
-import PresentToAllIcon from "@material-ui/icons/PresentToAll";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import MicOffIcon from "@material-ui/icons/MicOff";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
-import MeetingParticipants from "./MeetingParticipants";
-import GroupIcon from "@material-ui/icons/Group";
-
-
-
-
 
 const socket = io("http://localhost:8000");
+
 
 const Meeting = () => {
   const [chatOrParticipants, setChatOrParticipants] = useState("Chat");
   const { roomId } = useParams();
   let peer = null;
-  let myUserId = null;
+
   const history = useHistory();
   // let socket = null;
   const [isMute, setIsMute] = useState(false);
   const [isVideo, setIsVideo] = useState(true);
   const [isChatActive, setIsChatActive] = useState(false);
-
+  
   const [myVideoStream, setMyVideoStream] = useState(null);
+
 
   let isFullScreen = false;
   let peers = {};
@@ -129,6 +124,11 @@ const Meeting = () => {
     console.log("connect");
     const call = peer.call(userId, stream);
     const video = document.createElement("video");
+
+    video.addEventListener("dblclick", () => {
+      openAndCloseFullscreen(video);
+    });
+
     let div = null;
     call.on("stream", (userVideoStream) => {
       // appending video
@@ -148,13 +148,34 @@ const Meeting = () => {
     peers[userId] = call;
   };
 
+  
   const handleCallEnd = () => {
-    socket.emit('user-self-call-end');
-    myVideoStream.getTracks().forEach(function(track) {
+    socket.emit("user-self-call-end");
+    // stop all track
+    myVideoStream.getTracks().forEach(function (track) {
       track.stop();
     });
     history.replace("/");
-  }
+  };
+
+  const [finishStatus, setfinishStatus] = useState(false);
+
+  const onBackButtonEvent = (e) => {
+    e.preventDefault();
+    if (!finishStatus) {
+      if (window.confirm("Do you want to leave ?")) {
+        socket.emit("user-self-call-end");
+        setfinishStatus(true);
+        history.push("/");
+      } else {
+        window.history.pushState(null, null, window.location.pathname);
+        setfinishStatus(false);
+      }
+    }
+  };
+
+
+  const [id, setId] = useState("");
 
   useEffect(() => {
     // peer = new Peer(undefined, {
@@ -162,11 +183,11 @@ const Meeting = () => {
     //   host: '/',
     //   port: '8000'}
     // );
+
     peer = new Peer();
-    // socket = io("http://localhost:8000");
     // when we successfully get our peer id
     peer.on("open", (id) => {
-      console.log("peer ID", id);
+      setId(id);
       // getting our own video
       navigator.mediaDevices
         .getUserMedia({
@@ -174,9 +195,10 @@ const Meeting = () => {
           audio: true,
         })
         .then((stream) => {
+          // this code is for my own video
           setMyVideoStream(stream);
           setMainVideo(stream);
-
+          
           peer.on("call", (call) => {
             call.answer(stream);
 
@@ -185,10 +207,16 @@ const Meeting = () => {
 
             call.on("stream", (userVideoStream) => {
               video.srcObject = userVideoStream;
+
               video.addEventListener("loadedmetadata", () => {
                 video.play();
               });
             });
+
+            video.addEventListener("dblclick", () => {
+              openAndCloseFullscreen(video);
+            });
+
             div = document.createElement("div");
             div.className = "col-md-2 single-video";
             div.append(video);
@@ -197,7 +225,6 @@ const Meeting = () => {
             call.on("close", () => {
               div.remove();
             });
-            // peers[id] = call;
           });
 
           socket.on("new-user-connected", (userId) => {
@@ -205,7 +232,9 @@ const Meeting = () => {
             // we neet their video and i have to provide my video to them
             connectToNewUser(userId, stream);
           });
+
         });
+
       socket.emit("user-join-room", roomId, id); // id is UserId
       socket.on("createMessage", (message, userId) => {
         const chatContainer = document.getElementById("chat-msg-container");
@@ -242,10 +271,17 @@ const Meeting = () => {
       });
 
       socket.on("user-disconnected-manually", (userId) => {
-        console.log("END")
+        console.log("END");
         if (peers[userId]) peers[userId].close();
-      })
+      });
     });
+
+    // on back button event
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener("popstate", onBackButtonEvent);
+    return () => {
+      window.removeEventListener("popstate", onBackButtonEvent);
+    };
   }, []);
 
   return (
@@ -258,6 +294,9 @@ const Meeting = () => {
           <div id="content">
             <div className="main-content" id="main-content">
               <div className="video-container p-2">
+                {/* test */}
+                <div id="test"></div>
+                {/* test */}
                 <div className="main-video" id="main-video">
                   {/* <video src="/file.mp4" autoPlay loop></video> */}
                 </div>
@@ -270,16 +309,20 @@ const Meeting = () => {
               </div>
               <div className="meeting-bar">
                 <div className="meeting-buttons-container">
-                  <Button onClick={muteUnmute} className={isMute === true ? "red" : ""}>
+                  <Button
+                    onClick={muteUnmute}
+                    className={isMute === true ? "red" : ""}
+                  >
                     {isMute === false ? <MicIcon /> : <MicOffIcon />}
                   </Button>
-                  <Button onClick={playStop} className={isVideo === false ? "red" : ""}>
+                  <Button
+                    onClick={playStop}
+                    className={isVideo === false ? "red" : ""}
+                  >
                     {isVideo === true ? <VideocamIcon /> : <VideocamOffIcon />}
                   </Button>
-                  <Button>
-                    <PresentToAllIcon />
-                  </Button>
-                  <Button className={isChatActive === true ? "blue" : ""}
+                  <Button
+                    className={isChatActive === true ? "blue" : ""}
                     onClick={() => {
                       setIsChatActive(isChatActive === true ? false : true);
                       document
@@ -288,9 +331,6 @@ const Meeting = () => {
                     }}
                   >
                     <ChatIcon />
-                  </Button>
-                  <Button>
-                    <GroupIcon />
                   </Button>
                   <Button className="red" onClick={handleCallEnd}>
                     <CallEndIcon />
@@ -306,7 +346,6 @@ const Meeting = () => {
 
             {chatOrParticipants === "Chat" && (
               <>
-            
                 <div id="chat-msg-container" className="p-2"></div>
                 <div className="chat-msg-util-container p-2">
                   <div className="d-inline close-btn">
@@ -341,7 +380,6 @@ const Meeting = () => {
                 </div>
               </>
             )}
-            {chatOrParticipants === "Participants" && <MeetingParticipants />}
           </nav>
         </div>
       </div>

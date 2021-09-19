@@ -1,20 +1,27 @@
-import Button from "@material-ui/core/Button";
-import { NavLink } from "react-router-dom";
-const Homepage = () => {
-  return (
-    <>
-      <div className="container homepage-container text-center">
-        <div className="homepage p-5">
-          <h3>Hi, to use our service kindly register with us</h3>
-          <div className="btn-container">
-            <NavLink to="/collegeLogin" style={{textDecoration:"none"}}><Button className="bg-warning m-2 teacherRgBtn">College Login</Button></NavLink>
-            <NavLink to="/teacherLogin" style={{textDecoration:"none"}}><Button className="bg-primary m-2 studentRgBtn">Teacher Login</Button></NavLink>
-            <NavLink to="/studentLogin" style={{textDecoration:"none"}}><Button className="bg-info m-2 studentRgBtn">Student Login</Button></NavLink>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 
-export default Homepage;
+const HomePage = () => {
+
+    const history = useHistory();
+    useEffect(() => {
+        fetch('/getRoomId', {
+            method:"POST",
+            headers:{
+                'Content-Type':'applications/json',
+            }
+        }).then(( async result =>{
+            const data = await result.json();
+            if(result.status === 200) {
+                history.push(data.roomId);
+            }
+        }))
+    }, [])
+    return (
+        <>
+        <h3>Please wait...</h3>
+        </>
+    )
+}
+
+export default HomePage;

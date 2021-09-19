@@ -1,48 +1,19 @@
 import "./media.scss";
 import "./style.scss";
-import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Switch, Route } from "react-router-dom";
-import Homepage from "./Components/Homepage";
-import CollegeLogin from "./Components/College/CollegeLogin";
-import CollegeRegistration from "./Components/College/CollegeRegistration";
-import CollegeDashboard from "./Components/College/CollegeDashboard";
-import TeacherLogin from "./Components/Teacher/TeacherLogin";
-import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import Meeting from "./Components/Meetings/Meeting";
-import StudentLogin from "./Components/Student/StudentLogin";
-import StudentDashboard from "./Components/Student/StudentDashboard";
+import HomePage from './Components/HomePage';
 
 const App = () => {
   return (
     <>
       <Switch>
         <Route path="/" exact>
-          <Homepage />
+          <HomePage />
         </Route>
-        <Route path="/collegeRegister" exact>
-          <CollegeRegistration />
-        </Route>
-        <Route path="/collegeLogin" exact>
-          <CollegeLogin />
-        </Route>
-        <Route path="/collegeDashboard" exact>
-          <CollegeDashboard />
-        </Route>
-        <Route path="/teacherLogin" exact>
-          <TeacherLogin />
-        </Route>
-        <Route path="/teacherDashboard" exact>
-          <TeacherDashboard />
-        </Route>
-        <Route path="/studentLogin" exact>
-          <StudentLogin />
-        </Route>
-        <Route path="/studentDashboard" exact>
-          <StudentDashboard />
-        </Route>
-        <Route path="/meet/:roomId" exact>
+        <Route path="/:roomId" exact>
           <Meeting />
         </Route>
       </Switch>
